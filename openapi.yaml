@@ -1,0 +1,115 @@
+openapi: 3.0.1
+info:
+  title: Memory AI API
+  version: 0.1.0
+  description: API for Memory AI MVP
+servers:
+- url: https://api.memory-ai.example
+paths:
+  /auth/signup:
+    post:
+      summary: Sign up (email)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+      responses:
+        '201':
+          description: Created
+  /albums:
+    get:
+      summary: List user's albums
+      responses:
+        '200':
+          description: Array of albums
+    post:
+      summary: Create album
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                privacy:
+                  type: string
+      responses:
+        '201':
+          description: Created
+  /albums/{id}:
+    get:
+      summary: Get album
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Album payload
+  /albums/{id}/upload-url:
+    post:
+      summary: Generate pre-signed upload URL
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filename:
+                  type: string
+                mimeType:
+                  type: string
+      responses:
+        '200':
+          description: Signed URL
+  /albums/{id}/media:
+    post:
+      summary: Confirm uploaded media and create media record
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                storagePath:
+                  type: string
+                filename:
+                  type: string
+                mimeType:
+                  type: string
+                caption:
+                  type: string
+      responses:
+        '201':
+          description: Media created
+  /albums/{id}/share:
+    post:
+      summary: Create share link
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                expires_in_hours:
+                  type: integer
+                password:
+                  type: string
+      responses:
+        '201':
+          description: Share created

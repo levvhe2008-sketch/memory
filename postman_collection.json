@@ -1,0 +1,81 @@
+{
+  "info": {
+    "name": "Memory AI API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Sign up",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\": \"user@example.com\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/signup",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "auth",
+            "signup"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create album",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"My Album\", \"description\": \"test\", \"privacy\": \"private\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/albums",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "albums"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get upload URL",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"filename\": \"photo.jpg\", \"mimeType\": \"image/jpeg\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/albums/{{albumId}}/upload-url",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "albums",
+            "{{albumId}}",
+            "upload-url"
+          ]
+        }
+      }
+    }
+  ]
+}

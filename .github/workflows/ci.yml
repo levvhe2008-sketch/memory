@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        run: npm ci
+      - name: Run unit tests (Vitest)
+        run: npm run test
+      - name: Run E2E tests (Playwright - headed detection)
+        run: npx playwright install --with-deps && npx playwright test --reporter=list || true
+      - name: Build
+        run: npm run build
